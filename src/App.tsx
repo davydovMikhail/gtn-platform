@@ -1,20 +1,12 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Main from './pages/main';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          RangeBet Platform
-        </p>
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Coming soon
-        </p>
-      </header>
-    </div>
+    <>
+      <Main/>
+    </>
   );
 }
 
