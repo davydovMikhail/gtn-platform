@@ -170,7 +170,7 @@ body {
   top: 32px;
   left:50%;
   transform:translateX(-50%); 
-  width: 1518px;
+  width: 1856px;
   padding: 16px 20px 16px 48px;
   display: flex;
   justify-content: space-between;
@@ -190,12 +190,14 @@ body {
   width: 100%;
 }
 .button__transparent {
-  color:#fff
-}
-.button__transparent:hover {
+  color:#fff;
   background: rgba(255, 255, 255, 0.10);
 }
+.button__transparent:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
 .button__style {
+  cursor: pointer;
   background: var(--12421, linear-gradient(192deg, #D5FF2D 0%, #0BE2FF 100%));
   box-shadow: 0px 0px 24px 0px rgba(191, 252, 67, 0.50);
 }
@@ -203,7 +205,11 @@ body {
   background: linear-gradient(0deg, rgba(200, 255, 181, 0.20) 0%, rgba(200, 255, 181, 0.20) 100%), linear-gradient(192deg, #D5FF2D 0%, #0BE2FF 100%);
   box-shadow: 0px 0px 48px 0px rgba(142, 249, 0, 0.50);
 }
+.header__group {
+  display: flex;
+}
 .header__balance {
+  margin-right: 10px;
   border-radius: 100px;
   border: 1px solid rgba(255, 255, 255, 0.20);
   background: #000;
@@ -220,20 +226,13 @@ body {
   align-items: center;
 }
 .header__info {
-  background: var(--sdfsdf, linear-gradient(to bottom right, #FFE2A4 0%, #FFB81F 32%, #FFE2A4 50%) bottom right / 50% 50% no-repeat, linear-gradient(to bottom left, #FFE2A4 0%, #FFB81F 32%, #FFE2A4 50%) bottom left / 50% 50% no-repeat, linear-gradient(to top left, #FFE2A4 0%, #FFB81F 32%, #FFE2A4 50%) top left / 50% 50% no-repeat, linear-gradient(to top right, #FFE2A4 0%, #FFB81F 32%, #FFE2A4 50%) top right / 50% 50% no-repeat);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #fff;
   font-size: 20px;
-  font-style: normal;
-  font-weight: 600;
   line-height: 48px; /* 240% */
-  text-transform: capitalize;
 }
 .header__baltext {
   color: var(--w, #FFF);
   font-size: 20px;
-  font-weight: 600;
   line-height: 48px;
 }
 .header__wallet {
@@ -247,6 +246,8 @@ body {
   width: 32px;
   height: 32px;
   margin-right: 12px;
+  display: flex;
+  align-items: center;
 }
 
 .header__loader {
@@ -369,7 +370,6 @@ textarea:focus, input:focus{
 }
 .ranges__line {
   border-radius: 100px;
-  width: 55%;
   height: 12px;
 }
 .ranges__line_right {
@@ -398,6 +398,7 @@ textarea:focus, input:focus{
   font-weight: 600;
   text-transform: capitalize;
   border: 0;
+  cursor: pointer;
 }
 .decision__button_less {
   background: var(--12421, linear-gradient(192deg, #B0FF09 0%, #05B8F1 100%));
