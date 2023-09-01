@@ -18,3 +18,12 @@ export function PushGame(game: any): MainAction {
 export function ClearGames(): MainAction {
     return {type: MainActionTypes.CLEAR_GAMES}
 }
+export function SetCurrentPage(currentPage: number): MainAction {
+    return {type: MainActionTypes.SET_CURRENT_PAGE, payload: currentPage}
+}
+export function SetTotalGames(totalGames: number): MainAction {
+    return {type: MainActionTypes.SET_TOTAL_GAMES, payload: totalGames}
+}
+export function SetTotalPages(totalPages: number): MainAction {
+    return {type: MainActionTypes.SET_TOTAL_PAGES, payload: totalPages}
+}

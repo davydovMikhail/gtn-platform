@@ -7,6 +7,9 @@ const initialState: MainState = {
     status: Status.Guess,
     showOK: false,
     games: [],
+    totalGames: 0,
+    currentPage: 1,
+    totalPages: 0
 }
 
 export const mainReducer = (state: MainState = initialState, action: MainAction): MainState => {
@@ -23,6 +26,12 @@ export const mainReducer = (state: MainState = initialState, action: MainAction)
             return {...state, games: [...state.games, action.payload] }
         case MainActionTypes.CLEAR_GAMES:
             return {...state, games: [] }
+        case MainActionTypes.SET_CURRENT_PAGE:
+            return {...state, currentPage: action.payload }
+        case MainActionTypes.SET_TOTAL_GAMES:
+            return {...state, totalGames: action.payload }
+        case MainActionTypes.SET_TOTAL_PAGES:
+            return {...state, totalPages: action.payload }
         default:
             return state
     }

@@ -2,15 +2,17 @@ import { useEthers, Sepolia } from "@usedapp/core";
 import { useCallback } from "react";
 import { useContracts } from "./useContracts";
 import { toast } from "react-toastify";
+const chain = process.env.REACT_APP_CHAIN as string;
 
 export const usePlayBid = () => {
   const { GameContract } = useContracts();
-  const { switchNetwork, account } = useEthers();
+  const { switchNetwork, account, activateBrowserWallet } = useEthers();
 
   return useCallback(
     async () => {
       if (!GameContract) return;
-      await switchNetwork(Sepolia.chainId);
+      await switchNetwork(Number(chain));
+      activateBrowserWallet();
       try {
         const txPromise = await GameContract.play();
         const tx = await txPromise.wait();

@@ -13,15 +13,24 @@ import { useRequestGameHash } from '../hooks/useRequestGameHash';
 import { useGetCurrentBlockNumber } from '../hooks/useGetBlockNumber'
 import { usePlayBid } from '../hooks/usePlayBid';
 import { useGetRandomNumber } from '../hooks/useGetRandomNumber';
+import { useGetTotalGames } from '../hooks/useGetTotalGames';
 import { useEthers } from "@usedapp/core";
+import GameItem from '../components/game-item/gameItem';
+import Pagination from '../components/pagination/pagination';
 import { Status } from '../types/main'
 import Connect from "../img/Connect.png"
 import Fail from "../img/Fail.png"
 import Guess from "../img/Guess.png"
 import Won from "../img/Won.png"
+import Flag from "../img/flag.svg"
 import { useGetBalance } from '../hooks/useGetBalance';
 import { toast } from "react-toastify";
 import SetInterval from 'set-interval'
+import Timeout from 'await-timeout';
+
+import MiniLogo from "./../img/MiniLogo.svg"
+import Telegram from "./../img/Telegram.svg"
+import XxX from "./../img/twitter.png"
 
 const Main = () => {
     
@@ -43,7 +52,7 @@ const Main = () => {
         }
     }
     function handleMaxAmount() {
-        setAmount(balance.toString());
+        setAmount( (Math.floor(balance * 100000) / 100000).toString());
     }
     function handleHalfAmount() {
         const halfAmount = Number(amount) / 2;
@@ -134,6 +143,17 @@ const Main = () => {
             });
             return;
         }
+        if (balance < Number(amount)) {
+            toast.info('Not enough $RBET tokens', {
+                position: "bottom-center",
+                autoClose: 1000,
+                hideProgressBar: true,
+                pauseOnHover: false,
+                draggable: true,
+                theme: "colored",
+            });
+            return;
+        }
         if (maxWin < (Number(getPossibleWin()) as number)) {
             toast.info('Possible win exceed the max win', {
                 position: "bottom-center",
@@ -152,17 +172,18 @@ const Main = () => {
             await approveHook();
         }
         SetNotification('Requesting the hash of your game...');
+        startLighthouse();
         const hashBefore = await hashHook(account);
         const balanceBefore = (await getBalanceHook(account as string)) as number;
         const targetBlock = (await requestHook(amount, percent, isGreater))?.blockNumber.toString() as string;
         SetNotification('Confirm the call to the play function');
+        startLighthouse();
         SetInterval.start(async () => {
             const currentBlock = (await blockHook()) as number;
             const hashAfter = await hashHook(account);
             if(hashBefore !== hashAfter && currentBlock > Number(targetBlock) && firstIteration.current) {
                 firstIteration.current = false;
                 SetInterval.clear('checkHash')
-                // clearInterval(start.current);
                 await playHook();
                 const randomNumber = await randomHook(targetBlock, account);
                 const balanceAfter = (await getBalanceHook(account as string)) as number;
@@ -173,15 +194,44 @@ const Main = () => {
                     SetNotification(`Your bet is not played! Random number - ${randomNumber}`);
                     SetStatus(Status.Fail);
                 }
+                startLighthouse();
                 setBalance(balanceAfter);
                 const maxWin = await maxWinHook(); 
                 setMaxWin(maxWin as number);
-
+                const total = await totalHook();
+                SetTotalGames(total);
+                ClearGames();
             }
         }, 500, "checkHash")
     }
 
-    const { SetNotification, SetLoader, SetShowOk, PushGame, ClearGames, SetStatus } = useActions();
+    async function startLighthouse() {
+        setBorderColor("#FFB81F");
+        await Timeout.set(350);
+        setBorderColor("rgba(255, 255, 255, 0.20)");
+        await Timeout.set(350);
+        setBorderColor("#FFB81F");
+        await Timeout.set(350);
+        setBorderColor("rgba(255, 255, 255, 0.20)");
+        await Timeout.set(350);
+        setBorderColor("#FFB81F");
+        await Timeout.set(350);
+        setBorderColor("rgba(255, 255, 255, 0.20)");
+        await Timeout.set(350);
+        setBorderColor("#FFB81F");
+        await Timeout.set(350);
+        setBorderColor("rgba(255, 255, 255, 0.20)");
+        await Timeout.set(350);
+        setBorderColor("#FFB81F");
+        await Timeout.set(350);
+        setBorderColor("rgba(255, 255, 255, 0.20)");
+    }
+
+    function colorLighthouse() {
+        return borderColor;
+    }
+
+    const { SetNotification, ClearGames, SetStatus, SetTotalGames } = useActions();
     const getBalanceHook = useGetBalance();
     const maxWinHook = useGetMaxWin();
     const allowanceHook = useGetAllowance();
@@ -190,14 +240,16 @@ const Main = () => {
     const blockHook = useGetCurrentBlockNumber();
     const playHook = usePlayBid();
     const randomHook = useGetRandomNumber();
+    const totalHook = useGetTotalGames();
     const { activateBrowserWallet, account } = useEthers();
     const [amount, setAmount] = useState('1');
     const [percent, setPercent] = useState('20');
     const [balance, setBalance] = useState(0);
     const [maxWin, setMaxWin] = useState(0); 
+    const [borderColor, setBorderColor] = useState("rgba(255, 255, 255, 0.20)"); 
     const approveHook = useApproveToGame();
     const firstIteration = useRef(true);
-    const {status, notification} = useTypedSelector(state => state.main);
+    const {status, notification, games, totalGames} = useTypedSelector(state => state.main);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -209,9 +261,10 @@ const Main = () => {
 
     useEffect(() => {
         const fetchData = async () => {
+            const total = await totalHook();
+            SetTotalGames(total);
             const maxWin = await maxWinHook(); 
             setMaxWin(maxWin as number);
-            // await updateLastGames();
         }
         fetchData().catch(console.error);
     },[]);
@@ -221,8 +274,8 @@ const Main = () => {
         <>
             <main>
                 <div className="header">
-                    <img src={Logo} alt="logo"/>
                     <div className="header__group">
+                        <img className="header__logo" src={Logo} alt="logo"/>
                         {account ? 
                             <div className="header__balance">
                                 <div className="header__wallet">
@@ -234,7 +287,7 @@ const Main = () => {
                             </div> : ""
                         }
                         {account ?
-                            <div className="header__tablo">
+                            <div className="header__tablo" style={{border: `1px solid ${colorLighthouse()}`}}> 
                                 <div className="header__preloader">
                                     <img src={getIcon()} className={ status === Status.Loader ? "header__loader" : "" } />
                                 </div>
@@ -261,6 +314,15 @@ const Main = () => {
                                   <a onClick={() => activateBrowserWallet()} className="button__size button__style">Connect Wallet</a>
                         }
 
+                    </div>
+                </div>
+                <div className="max">
+                    <div className="max__title">
+                        <img className="max__icon" src={Flash} alt="logo"/>
+                        <div>Maximum possible win:</div>
+                    </div>
+                    <div className="max__sum">
+                        {maxWin.toFixed(2)} $RBET
                     </div>
                 </div>
                 <div className="wrapper">
@@ -305,10 +367,10 @@ const Main = () => {
                         </div>
                     </div>
                     <div className="decision">
-                        <button onClick={() => handlePlay(false)} className="decision__button decision__button_less">
+                        <button disabled={ status == Status.Loader } onClick={() => handlePlay(false)} className="decision__button decision__button_less">
                             Less
                         </button>
-                        <button onClick={() => handlePlay(true)} className="decision__button decision__button_more">
+                        <button disabled={ status == Status.Loader } onClick={() => handlePlay(true)} className="decision__button decision__button_more">
                             More
                         </button>
                     </div>
@@ -332,14 +394,50 @@ const Main = () => {
                     <div className="possibletext">
                         {getPossibleWin()} $RBET
                     </div>
-                    <div className="max">
-                        <div className="max__title">
-                            <img className="max__icon" src={Flash} alt="logo"/>
-                            <div>Maximum possible win:</div>
+                    <div className="total">
+                        <div className="total__title">
+                            <img className="total__icon" src={Flag} alt="flag"/>
+                            <div>Total Games Results</div>
                         </div>
-                        <div className="max__sum">
-                        {maxWin.toFixed(2)} $RBET
+                        <div className="total__sum">
+                            {totalGames} Games
                         </div>
+                    </div>
+                </div>
+                <div className="boardwrap">
+                    <div className="board">
+                        <div className="board__header">
+                            <div className="board__title">
+                                Status
+                            </div>
+                            <div className="board__title">
+                                Address
+                            </div>
+                            <div className="board__title">
+                                Chance (%)
+                            </div>
+                            <div className="board__title">
+                                Win Sum ($RBET)
+                            </div>
+                            <div className="board__title">
+                                Random Number
+                            </div>
+                        </div>
+                        {games.map(block => GameItem(block))}
+                    </div> 
+                    <Pagination/>
+                </div>
+                <div className="footer">
+                    <img src={MiniLogo} alt="mini logo" />
+                    <div className="footer__text">Privacy Policy</div>
+                    <div className="footer__text">Copyright 2023. RabgeBet. All Rights Reserved.</div>
+                    <div className="footer__links">
+                        <a href="#">
+                            <img src={Telegram} alt="telegram"/>
+                        </a>
+                        <a href="#">
+                            <img src={XxX} alt="X"/>
+                        </a>
                     </div>
                 </div>
             </main>

@@ -12,6 +12,9 @@ export interface MainState {
     status: Status;
     showOK: boolean;
     games: any[];
+    totalGames: number;
+    currentPage: number;
+    totalPages: number;
 }
 
 export enum MainActionTypes {
@@ -20,7 +23,10 @@ export enum MainActionTypes {
     SET_SHOW_OK = 'SET_SHOW_OK',
     SET_STATUS = 'SET_STATUS',
     PUSH_GAME = 'PUSH_GAME',
-    CLEAR_GAMES = 'CLEAR_GAMES'
+    CLEAR_GAMES = 'CLEAR_GAMES',
+    SET_TOTAL_GAMES = 'SET_TOTAL_GAMES',
+    SET_CURRENT_PAGE = 'SET_CURRENT_PAGE',
+    SET_TOTAL_PAGES = 'SET_TOTAL_PAGES'
 } 
 interface SetLoaderAction {
     type: MainActionTypes.SET_LOADER;
@@ -45,10 +51,25 @@ interface SetStatusAction {
     type: MainActionTypes.SET_STATUS;
     payload: Status;
 }
+interface SetTotalGamesAction {
+    type: MainActionTypes.SET_TOTAL_GAMES;
+    payload: number;
+}
+interface SetCurrentPageAction {
+    type: MainActionTypes.SET_CURRENT_PAGE;
+    payload: number;
+}
+interface SetTotalPagesAction {
+    type: MainActionTypes.SET_TOTAL_PAGES;
+    payload: number;
+}
 export type MainAction = 
     SetLoaderAction |
     SetNotificationAction |
     SetShowOkAction |
     SetStatusAction |
     PushGameAction |
-    ClearGamesAction;
+    ClearGamesAction |
+    SetTotalGamesAction |
+    SetCurrentPageAction |
+    SetTotalPagesAction;
