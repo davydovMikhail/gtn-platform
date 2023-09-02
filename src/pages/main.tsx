@@ -155,7 +155,7 @@ const Main = () => {
             return;
         }
         if (maxWin < (Number(getPossibleWin()) as number)) {
-            toast.info('Possible win exceed the max win', {
+            toast.info('Possible payout exceed the max payout', {
                 position: "bottom-center",
                 autoClose: 1000,
                 hideProgressBar: true,
@@ -188,10 +188,10 @@ const Main = () => {
                 const randomNumber = await randomHook(targetBlock, account);
                 const balanceAfter = (await getBalanceHook(account as string)) as number;
                 if(balanceAfter > balanceBefore) {
-                    SetNotification(`You've won! Random number - ${randomNumber}`);
+                    SetNotification(`Bet won. Random number is ${randomNumber}`);
                     SetStatus(Status.Won);
                 } else {
-                    SetNotification(`Your bet is not played! Random number - ${randomNumber}`);
+                    SetNotification(`The bet is lost. Random number is ${randomNumber}`);
                     SetStatus(Status.Fail);
                 }
                 startLighthouse();
@@ -319,7 +319,7 @@ const Main = () => {
                 <div className="max">
                     <div className="max__title">
                         <img className="max__icon" src={Flash} alt="logo"/>
-                        <div>Maximum possible win:</div>
+                        <div>Maximum possible payout:</div>
                     </div>
                     <div className="max__sum">
                         {maxWin.toFixed(2)} $RBET
@@ -389,7 +389,7 @@ const Main = () => {
                         ></div>
                     </div>
                     <div className="possible">
-                        Possible Win
+                        Possible Payout
                     </div>
                     <div className="possibletext">
                         {getPossibleWin()} $RBET
@@ -417,7 +417,7 @@ const Main = () => {
                                 Chance (%)
                             </div>
                             <div className="board__title">
-                                Win Sum ($RBET)
+                                Payout ($RBET)
                             </div>
                             <div className="board__title">
                                 Random Number
