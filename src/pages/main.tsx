@@ -297,7 +297,7 @@ const Main = () => {
                             </div>
                             :
                             <div className="header__tablo">
-                                <div className="header__preloader">
+                                <div className="header__preloader header__preloader_blink">
                                     <img src={Connect} className={ status === Status.Loader ? "header__loader" : "" } />
                                 </div>
                                 <div className="header__info">
@@ -375,8 +375,8 @@ const Main = () => {
                         </button>
                     </div>
                     <div className="pieces">
-                        <div className="pieces__cell">0 - { getRange() }</div>
-                        <div className="pieces__cell">{ 999999 - getRange() } - 999999</div>
+                        <div className="pieces__cell pieces__leftborder">0 - { getRange() }</div>
+                        <div className="pieces__cell pieces__rightborder">{ 999999 - getRange() } - 999999</div>
                     </div>
                     <div className="ranges">
                         <div

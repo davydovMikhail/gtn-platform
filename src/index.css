@@ -271,7 +271,14 @@ body {
   display: flex;
   align-items: center;
 }
-
+.header__preloader_blink {
+  animation: blinker 1.5s linear infinite;
+}
+@keyframes blinker {
+  50% {
+    opacity: 0.3;
+  }
+}
 .header__loader {
   position: absolute;
   animation: 2s spin infinite linear;
@@ -434,11 +441,16 @@ textarea:focus, input:focus{
   justify-content: space-between;
   margin-top: 48px;
 }
+.pieces__leftborder {
+  border: 1px solid #65DF6F;
+}
+.pieces__rightborder {
+  border: 1px solid #FFB821;
+}
 .pieces__cell {
   color: #FFF;
   font-size: 20px;
   border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.20);
   background: #191919;
   padding: 16px 24px;
 }
@@ -446,7 +458,7 @@ textarea:focus, input:focus{
   padding: 12px 48px;
   color: white;
   text-align: center;
-  width: 256px;
+  width: 316px;
   margin: auto;
   font-size: 24px;
   background: var(--sdfsdf, linear-gradient(to bottom right, #FFE2A4 0%, #FFB81F 32%, #FFE2A4 50%) bottom right / 50% 50% no-repeat, linear-gradient(to bottom left, #FFE2A4 0%, #FFB81F 32%, #FFE2A4 50%) bottom left / 50% 50% no-repeat, linear-gradient(to top left, #FFE2A4 0%, #FFB81F 32%, #FFE2A4 50%) top left / 50% 50% no-repeat, linear-gradient(to top right, #FFE2A4 0%, #FFB81F 32%, #FFE2A4 50%) top right / 50% 50% no-repeat);
