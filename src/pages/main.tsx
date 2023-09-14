@@ -38,7 +38,7 @@ const Main = () => {
         if (Number(_amount) < 1) {
             setAmount("1");
         } else if (Number(_amount) > balance) {
-            setAmount(balance.toString());
+            setAmount( (Math.floor(balance * 100000) / 100000).toString());
         } else {
             setAmount(_amount);  
         }
