@@ -28,6 +28,7 @@ import { useGetBalance } from '../hooks/useGetBalance';
 import { toast } from "react-toastify";
 import SetInterval from 'set-interval'
 import Timeout from 'await-timeout';
+import { useWindowDimensions } from '../hooks/useWindowDimensions';
 
 import MiniLogo from "./../img/MiniLogo.svg"
 import Telegram from "./../img/Telegram.svg"
@@ -242,6 +243,7 @@ const Main = () => {
     const playHook = usePlayBid();
     const randomHook = useGetRandomNumber();
     const totalHook = useGetTotalGames();
+    const width = useWindowDimensions();
     const { activateBrowserWallet, account } = useEthers();
     const [amount, setAmount] = useState('1');
     const [percent, setPercent] = useState('20');
@@ -273,7 +275,7 @@ const Main = () => {
 
     return (
         <>
-            <main>
+            <main hidden={width < 1700}>
                 <div className="header">
                     <div className="header__group">
                         <img className="header__logo" src={Logo} alt="logo"/>
