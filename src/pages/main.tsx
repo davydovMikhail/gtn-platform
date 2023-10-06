@@ -167,6 +167,7 @@ const Main = () => {
             });
             return;
         }
+        setCurRange(isGreater ? 'more' : 'less');
         firstIteration.current = true;
         SetStatus(Status.Loader);
         if((await allowanceHook(account) as number) < Number(amount)) {
@@ -178,14 +179,15 @@ const Main = () => {
         const hashBefore = await hashHook(account);
         const balanceBefore = (await getBalanceHook(account as string)) as number;
         const targetBlock = (await requestHook(amount, percent, isGreater))?.blockNumber.toString() as string;
-        SetNotification('Confirm the call to the play function');
-        startLighthouse();
+        SetNotification('Waiting for a new block to appear');
         SetInterval.start(async () => {
             const currentBlock = (await blockHook()) as number;
             const hashAfter = await hashHook(account);
             if(hashBefore !== hashAfter && currentBlock > Number(targetBlock) && firstIteration.current) {
                 firstIteration.current = false;
                 SetInterval.clear('checkHash')
+                SetNotification('Confirm the call to the play function');
+                startLighthouse();
                 await playHook();
                 const randomNumber = await randomHook(targetBlock, account);
                 const balanceAfter = (await getBalanceHook(account as string)) as number;
@@ -203,6 +205,7 @@ const Main = () => {
                 const total = await totalHook();
                 SetTotalGames(total);
                 ClearGames();
+                setCurRange('none');
             }
         }, 500, "checkHash")
     }
@@ -249,6 +252,7 @@ const Main = () => {
     const [percent, setPercent] = useState('20');
     const [balance, setBalance] = useState(0);
     const [maxWin, setMaxWin] = useState(0); 
+    const [curRange, setCurRange] = useState("none"); 
     const [borderColor, setBorderColor] = useState("rgba(255, 255, 255, 0.20)"); 
     const approveHook = useApproveToGame();
     const firstIteration = useRef(true);
@@ -376,10 +380,20 @@ const Main = () => {
                         </div>
                     </div>
                     <div className="decision">
-                        <button disabled={ status == Status.Loader } onClick={() => handlePlay(false)} className="decision__button decision__button_less">
+                        <button 
+                            disabled={ status == Status.Loader } 
+                            onClick={() => handlePlay(false)} 
+                            className={curRange === 'less' ? "decision__button decision__button_less decision__current" : "decision__button decision__button_less"}
+                            style={{opacity: curRange === 'more' ? "0.2" : "1"}}
+                        >
                             Less
                         </button>
-                        <button disabled={ status == Status.Loader } onClick={() => handlePlay(true)} className="decision__button decision__button_more">
+                        <button 
+                            disabled={ status == Status.Loader } 
+                            onClick={() => handlePlay(true)} 
+                            className={curRange === 'more' ? "decision__button decision__button_more decision__current" : "decision__button decision__button_more"}
+                            style={{opacity: curRange === 'less' ? "0.2" : "1"}}
+                        >
                             More
                         </button>
                     </div>
