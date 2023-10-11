@@ -32,7 +32,7 @@ import { useWindowDimensions } from '../hooks/useWindowDimensions';
 
 import MiniLogo from "./../img/MiniLogo.svg"
 import Telegram from "./../img/Telegram.svg"
-import XxX from "./../img/twitter.png"
+import XxX from "./../img/twitter.svg"
 
 const Main = () => {
     
@@ -141,7 +141,7 @@ const Main = () => {
                 hideProgressBar: true,
                 pauseOnHover: false,
                 draggable: true,
-                theme: "colored",
+                theme: "dark",
             });
             return;
         }
@@ -152,7 +152,18 @@ const Main = () => {
                 hideProgressBar: true,
                 pauseOnHover: false,
                 draggable: true,
-                theme: "colored",
+                theme: "dark",
+            });
+            return;
+        }
+        if (Number(amount) < 1) {
+            toast.info('The minimum bet is 1 $RBET', {
+                position: "bottom-center",
+                autoClose: 1000,
+                hideProgressBar: true,
+                pauseOnHover: false,
+                draggable: true,
+                theme: "dark",
             });
             return;
         }
@@ -163,7 +174,7 @@ const Main = () => {
                 hideProgressBar: true,
                 pauseOnHover: false,
                 draggable: true,
-                theme: "colored",
+                theme: "dark",
             });
             return;
         }
@@ -470,7 +481,6 @@ const Main = () => {
                 </div>
                 <div className="footer">
                     <img src={MiniLogo} alt="mini logo" />
-                    <div className="footer__text">Privacy Policy</div>
                     <div className="footer__text">Copyright 2023. RangeBet. All Rights Reserved.</div>
                     <div className="footer__links">
                         <a target='_blank' href="https://t.me/rangebetcasino">
