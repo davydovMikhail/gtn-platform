@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.css": "/gtn-test/static/css/main.12eccbae.css",
-    "main.js": "/gtn-test/static/js/main.ed5a54df.js",
-    "static/media/happy.svg": "/gtn-test/static/media/happy.1189e6f2bbbc9de8139628d8a73eb477.svg",
-    "static/media/wallet.svg": "/gtn-test/static/media/wallet.fcece5fb098fe617dadf965aafb5791e.svg",
-    "static/media/Logo.svg": "/gtn-test/static/media/Logo.6c96906488cf38026d25c2c833ab61a9.svg",
-    "static/media/MiniLogo.svg": "/gtn-test/static/media/MiniLogo.a1f8ad3794e76952b254c91bd797bc9c.svg",
-    "static/media/sad.svg": "/gtn-test/static/media/sad.3ea1526703e1057f7560f467ff9f1884.svg",
-    "static/media/flash.svg": "/gtn-test/static/media/flash.8441c110ca85dbbb3c4945dddeb9954d.svg",
-    "static/media/flag.svg": "/gtn-test/static/media/flag.67fa90249b3ddcd87fd7e1025fced6bd.svg",
-    "static/media/Telegram.svg": "/gtn-test/static/media/Telegram.cf6feab34fd2ee4472c1319aad5e95dd.svg",
-    "static/media/twitter.svg": "/gtn-test/static/media/twitter.527a7299b69009a445793f7d32067d34.svg",
-    "index.html": "/gtn-test/index.html",
-    "static/media/copy.svg": "/gtn-test/static/media/copy.8cf972097cf8f0a92306ca9cb031bfb9.svg",
-    "static/media/iconRight.svg": "/gtn-test/static/media/iconRight.375f1072ea4d9f443bd93edd08f6580b.svg",
-    "main.12eccbae.css.map": "/gtn-test/static/css/main.12eccbae.css.map",
-    "main.ed5a54df.js.map": "/gtn-test/static/js/main.ed5a54df.js.map"
+    "main.css": "/gtn-platform/static/css/main.12eccbae.css",
+    "main.js": "/gtn-platform/static/js/main.d0f1f657.js",
+    "static/media/happy.svg": "/gtn-platform/static/media/happy.1189e6f2bbbc9de8139628d8a73eb477.svg",
+    "static/media/wallet.svg": "/gtn-platform/static/media/wallet.fcece5fb098fe617dadf965aafb5791e.svg",
+    "static/media/Logo.svg": "/gtn-platform/static/media/Logo.6c96906488cf38026d25c2c833ab61a9.svg",
+    "static/media/MiniLogo.svg": "/gtn-platform/static/media/MiniLogo.a1f8ad3794e76952b254c91bd797bc9c.svg",
+    "static/media/sad.svg": "/gtn-platform/static/media/sad.3ea1526703e1057f7560f467ff9f1884.svg",
+    "static/media/flash.svg": "/gtn-platform/static/media/flash.8441c110ca85dbbb3c4945dddeb9954d.svg",
+    "static/media/flag.svg": "/gtn-platform/static/media/flag.67fa90249b3ddcd87fd7e1025fced6bd.svg",
+    "static/media/Telegram.svg": "/gtn-platform/static/media/Telegram.cf6feab34fd2ee4472c1319aad5e95dd.svg",
+    "static/media/twitter.svg": "/gtn-platform/static/media/twitter.527a7299b69009a445793f7d32067d34.svg",
+    "index.html": "/gtn-platform/index.html",
+    "static/media/copy.svg": "/gtn-platform/static/media/copy.8cf972097cf8f0a92306ca9cb031bfb9.svg",
+    "static/media/iconRight.svg": "/gtn-platform/static/media/iconRight.375f1072ea4d9f443bd93edd08f6580b.svg",
+    "main.12eccbae.css.map": "/gtn-platform/static/css/main.12eccbae.css.map",
+    "main.d0f1f657.js.map": "/gtn-platform/static/js/main.d0f1f657.js.map"
   },
   "entrypoints": [
     "static/css/main.12eccbae.css",
-    "static/js/main.ed5a54df.js"
+    "static/js/main.d0f1f657.js"
   ]
 }
